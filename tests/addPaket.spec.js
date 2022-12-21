@@ -86,7 +86,8 @@ test.describe.parallel("Add Paket", async () => {
         await page.locator("#harga").click();
         await page.locator("#harga").fill("20000");
         await page.getByRole("button", { name: "Tambah" }).click();
-        await page.getByText("Bed Cover Berhasil Ditambahkan").click();
-        await expect(page.getByText("Nama Paket Sudah Ada")).toBeTruthy();
+        await expect(page.locator("#swal2-content")).toContainText(
+            " Nama Paket Sudah Ada"
+        );
     });
 });
