@@ -14,7 +14,7 @@ test.describe.parallel("Delete Toko", async () => {
         await page.goto(`${process.env.BASE_URL}/outlet`);
         await page
             .locator(
-                "#tablePaket > tbody > tr:nth-child(1) > td:nth-child(4) > a.badge.badge-danger.btn-delete"
+                "#tableOutlet > tbody > tr:nth-child(1) > td:nth-child(4) > a.badge.badge-danger.btn-delete"
             )
             .click();
         await page.getByRole("button", { name: "Ya, Buang !" }).click();
@@ -27,13 +27,13 @@ test.describe.parallel("Delete Toko", async () => {
         await page.goto(`${process.env.BASE_URL}/outlet`);
         await page
             .locator(
-                "#tablePaket > tbody > tr:nth-child(1) > td:nth-child(4) > a.badge.badge-danger.btn-delete"
+                "#tableOutlet > tbody > tr:nth-child(1) > td:nth-child(4) > a.badge.badge-danger.btn-delete"
             )
             .click();
         await page.getByRole("button", { name: "Batal" }).click();
         await expect(
             page.locator(
-                "#tablePaket > tbody > tr:nth-child(1) > td:nth-child(2)"
+                "#tableOutlet > tbody > tr:nth-child(1) > td:nth-child(2)"
             )
         ).toBeTruthy();
     });
@@ -42,7 +42,7 @@ test.describe.parallel("Delete Toko", async () => {
         await page.goto(`${process.env.BASE_URL}/paket`);
         await page
             .locator(
-                "#tablePaket > tbody > tr:nth-child(1) > td:nth-child(4) > a.badge.badge-danger.btn-delete"
+                "#tableOutlet > tbody > tr:nth-child(1) > td:nth-child(4) > a.badge.badge-danger.btn-delete"
             )
             .click();
         await page.getByRole("button", { name: "Ya, Buang !" }).click();
