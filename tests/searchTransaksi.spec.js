@@ -12,10 +12,11 @@ test.beforeEach(async ({ page }) => {
 test.describe.parallel("Cari Transaksi", () => {
     test("[APL18] Cari transaksi dengan data valid", async ({ page }) => {
         await page.goto(`${process.env.BASE_URL}/transaksi`);
-        await page.getByPlaceholder('Cari Transaksi').click();
-        await page.getByPlaceholder('Cari Transaksi').fill('APL22122205160025');
-        await page.getByPlaceholder('Cari Transaksi').press('Enter');
-        await expect( page.getByRole('gridcell', { name: 'APL22122205160025'})).toContainText('APL22122205160025')
+       await page.getByRole('gridcell', { name: 'APL20041721410011' }).click();
+       await page.getByPlaceholder('Cari Transaksi').click();
+       await page.getByPlaceholder('Cari Transaksi').fill('APL20041721410011');
+       await page.getByPlaceholder('Cari Transaksi').press('Enter');
+       await expect("#tableTransaksi > tbody > tr > td:nth-child(2)").toBeTruthy();
     });
 
     test("[APL19] Cari transaksi dengan data invalid", async ({ page }) => {

@@ -22,12 +22,11 @@ test.describe.parallel("Transaksi", () => {
 		await page.getByPlaceholder("Pilih Paket").click();
 		await page.getByLabel("Search:").click();
 		await page.getByLabel("Search:").fill("Bed");
-		await page.getByRole("link", { name: "Pilih" }).click();
-		await page.getByPlaceholder("Quantitas").click();
-		await page.getByPlaceholder("Quantitas").fill("2");
-		await page.getByRole("button", { name: "Tambah" }).click();
-		await page.locator("td:nth-child(4)").click();
-		await expect(page.locator('input[name="nama_paket\\[\\]"]')).toBeTruthy();
+        await page.getByRole('link', { name: 'Pilih' }).click();
+        await page.getByPlaceholder('Quantitas').click();
+        await page.getByPlaceholder('Quantitas').fill('2');
+        await page.getByRole('button', { name: 'Tambah' }).click();
+        await expect(page.locator('input[name="nama_paket\\[\\]"]')).toHaveValue('bed cover');
 	});
 
 	test("[APL08] Tambah paket dengan menggunakan data invalid", async ({
@@ -37,15 +36,28 @@ test.describe.parallel("Transaksi", () => {
 		await page.getByRole("link", { name: " Transaksi" }).click();
 		await page.getByRole("link", { name: "Belum Bayar" }).click();
 		await page.getByRole("link", { name: "Tambah" }).click();
-		await page.getByText("Cari Toko").click();
-		await page.getByText("Toko Aplous Pusat").click();
-		await page.getByPlaceholder("Pilih Paket").click();
-		await page.getByLabel("Search:").click();
-		await page.getByLabel("Search:").fill("Bed");
-		await page.getByRole("link", { name: "Pilih" }).click();
-		await page.getByPlaceholder("Quantitas").click();
-		await page.getByPlaceholder("Quantitas").fill("dua");
-		await page.getByRole("button", { name: "Tambah" }).click();
+        
+        await page.locator('#select2-outlet-container').click();
+        await page.getByText('Toko Aplous Pusat').click();
+        await page.getByPlaceholder('Pilih Paket').click();
+        await page.getByLabel('Search:').click();
+        await page.getByLabel('Search:').fill('bed');
+        await page.getByRole('link', { name: 'Pilih' }).click();
+        await page.getByPlaceholder('Quantitas').click();
+        await page.getByPlaceholder('Quantitas').fill('dua');
+        await page.getByRole('button', { name: 'Tambah' }).click();
+        // await page.locator('input[name="harga\\[\\]"]').click();
+		// await page.getByText("Cari Toko").click();
+        // await page.locator("#select2-outlet-container").click();
+
+		// await page.getByText("Toko Aplous Pusat").click();
+		// await page.getByPlaceholder("Pilih Paket").click();
+		// await page.getByLabel("Search:").click();
+		// await page.getByLabel("Search:").fill("bed");
+		// await page.getByRole("link", { name: "Pilih" }).click();
+		// await page.getByPlaceholder("Quantitas").click();
+		// await page.getByPlaceholder("Quantitas").fill("dua");
+		// await page.getByRole("button", { name: "Tambah" }).click();
 
 		await expect(page.locator('input[name="harga\\[\\]"]')).toHaveValue("NaN");
 	});
@@ -97,6 +109,9 @@ test.describe.parallel("Transaksi", () => {
 		await page.getByRole("link", { name: " Transaksi" }).click();
 		await page.getByRole("link", { name: "Belum Bayar" }).click();
 		await page.getByRole("link", { name: "Tambah" }).click();
+
+        await expect(page.locator('lokasi')).toHaveText('Toko Aplous Pusat');
+     
         await page.locator('#select2-outlet-container').click();
         await page.getByText('Toko Aplous Pusat').click();
         await page.getByPlaceholder('Pilih Paket').click();
@@ -259,7 +274,7 @@ test.describe.parallel("Transaksi", () => {
         await page.getByPlaceholder('Biaya Tambahan').fill('10');
         await page.getByText("Cari Pelanggan").click();
 		await page.getByText("08123456744").click();
-        
+
         const [page2] = await Promise.all([
             page.waitForEvent('popup'),
             page.getByRole('button', { name: 'Pesan' }).click()

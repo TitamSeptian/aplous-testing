@@ -35,18 +35,18 @@ test.describe.parallel("Add Paket", async () => {
             })
             .getByText(testData.toko)
             .click();
-        await page.locator("#select2-jenis-container").click();
-        await page
-            .locator("div")
-            .filter({ hasText: testData.jenis })
-            .locator("div")
-            .click();
-        await page.locator("#harga").click();
-        await page.locator("#harga").fill(testData.price);
-        await page.getByRole("button", { name: "Tambah" }).click();
-        await expect(
-            page.getByText(`${testData.name} Berhasil Ditambahkan`)
-        ).toBeTruthy();
+        // await page.locator("#select2-jenis-container").click();
+        // await page
+        //     .locator("div")
+        //     .filter({ hasText: testData.jenis })
+        //     .locator("div")
+        //     .click();
+        // await page.locator("#harga").click();
+        // await page.locator("#harga").fill(testData.price);
+        // await page.getByRole("button", { name: "Tambah" }).click();
+        // await expect(
+        //     page.getByText(`${testData.name} Berhasil Ditambahkan`)
+        // ).toBeTruthy();
     });
 
     test("[APL28] Tambah paket degan form kosong", async ({ page }) => {

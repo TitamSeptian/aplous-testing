@@ -22,55 +22,48 @@ const testData = {
     },
 };
 
-test.describe.parallel("Add Admin", async () => {
-    // test("[APL75] Tambah Admin valid", async ({ page }) => {
-    //     await page.goto(`${process.env.BASE_URL}/pengguna/admin`);
-    //     await page.getByRole("link", { name: "Tambah" }).click();
-    //     await page.locator("#nama").fill(testData.nama);
-    //     await page.locator("#username").fill(testData.username);
-    //     await page.locator('input[name="password"]').fill(testData.password);
-    //     await expect(
-    //         page.getByText(`${testData.name} Berhasil Ditambahkan`)
-    //     ).toBeTruthy();
-    // });
-    // test("[APL76] Tambah Admin dengan field kosong", async ({ page }) => {
-    //     await page.goto(`${process.env.BASE_URL}/pengguna/admin`);
-    //     await page.getByRole("link", { name: "Tambah" }).click();
-    //     await page.getByRole("button", { name: "Tambah" }).click();
-    //     await expect(page.getByText("Nama harus diisi")).toBeTruthy();
-    //     await expect(page.getByText("Username harus diisi")).toBeTruthy();
-    //     await expect(page.getByText("Password harus diisi")).toBeTruthy();
-    // });
-    // test("[APL77] Tambah Admin dengan invalid input", async ({ page }) => {
-    //     await page.goto(`${process.env.BASE_URL}/pengguna/admin`);
-    //     await page.getByRole("link", { name: "Tambah" }).click();
-    //     await page.locator("#nama").fill(testData.invalid.nama);
-    //     await page.locator("#username").fill(testData.invalid.username);
-    //     await page
-    //         .locator('input[name="password"]')
-    //         .fill(testData.invalid.password);
-    //     await page
-    //         .locator('input[name="password_confirmation"]')
-    //         .fill(testData.invalid.password);
-    //     await page.getByRole("button", { name: "Tambah" }).click();
-    //     await expect(page.getByText("Nama minimal 2 karakter")).toBeTruthy();
-    //     await expect(
-    //         page.getByText("Username minimal 2 karakter")
-    //     ).toBeTruthy();
-    //     await expect(page.getByText("Username Sudah Ada")).toBeTruthy();
-    // });
-    // test("[APL78] Tambah Admin dengan beda password", async ({ page }) => {
-    //     await page.goto(`${process.env.BASE_URL}/pengguna/admin`);
-    //     await page.getByRole("link", { name: "Tambah" }).click();
-    //     await page.locator("#nama").fill(testData.invalid.nama);
-    //     await page.locator("#username").fill(testData.invalid.username);
-    //     await page
-    //         .locator('input[name="password"]')
-    //         .fill(testData.invalid.password);
-    //     await page
-    //         .locator('input[name="password_confirmation"]')
-    //         .fill(testData.invalid.confirmPassword + "123");
-    //     await page.getByRole("button", { name: "Tambah" }).click();
-    //     await expect(page.getByText("Password tidak Cocok")).toBeTruthy();
-    // });
+test.describe.parallel("Update Admin", async () => {
+    test("[APL79] Edit Admin valid", async ({ page }) => {
+        await page.goto(`${process.env.BASE_URL}/pengguna/admin`);
+       await page.locator( `#tableAdmin > tbody > tr:nth-child(1) > td:nth-child(4) > a.badge.badge-warning.btn-edit`).click();
+       await page.locator('#nama').click();
+       await page.locator('#nama').fill('Ubah Admin');
+       await page.getByRole('button', { name: 'Ubah' }).click();
+       await expect(page.getByText('Berhasil merubah admin')).toContainText('Berhasil merubah admin');
+       await page.getByRole('button', { name: 'OK' }).click();
+    });
+
+    test("[APL80] Tambah Admin dengan field kosong", async ({ page }) => {
+        await page.goto(`${process.env.BASE_URL}/pengguna/admin`);
+        await page.getByRole('row', { name: '2 asd aasd  Edit  Buang' }).getByRole('link', { name: ' Edit' }).click();
+        await page.locator('#nama').click();
+        await page.locator('#nama').fill('');
+        await page.locator('#username').click();
+        await page.locator('#username').fill('');
+        await page.getByRole('button', { name: 'Ubah' }).click();
+        await expect(page.getByText('Nama Harus di isi')).toContainText("Nama Harus di isi");
+        await expect(page.getByText('Username Harus Diisi')).toContainText("Username Harus Diisi");
+    });
+
+    test("[APL81] Tambah Admin dengan invalid input", async ({ page }) => {
+        await page.goto(`${process.env.BASE_URL}/pengguna/admin`);
+        await page.getByRole('row', { name: '2 asd aasd  Edit  Buang' }).getByRole('link', { name: ' Edit' }).click();
+        await page.locator('#nama').click();
+        await page.locator('#nama').fill('a');
+        await page.locator('#username').click();
+        await page.locator('#username').fill('a');
+        await page.getByRole('button', { name: 'Ubah' }).click();
+        await expect(page.getByText('Nama Minimal 2 karakter')).toContainText("Nama Minimal 2 karakter");
+    });
+
+    test("[APL82] Tambah Admin dengan beda password", async ({ page }) => {
+        await page.goto(`${process.env.BASE_URL}/pengguna/admin`);
+        await page.getByRole('row', { name: '2 asd aasd  Edit  Buang' }).getByRole('link', { name: ' Edit' }).click();
+        await page.locator('input[name="password"]').click();
+        await page.locator('input[name="password"]').fill('admin123');
+        await page.locator('input[name="password_confirmation"]').click();
+        await page.locator('input[name="password_confirmation"]').fill('123admin');
+        await page.getByRole('button', { name: 'Ubah' }).click();
+        await expect(page.getByText('Password tidak Cocok')).toContainText("Password tidak Cocok");
+    });
 });

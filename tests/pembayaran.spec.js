@@ -17,12 +17,7 @@ test.describe.parallel("Pembayaran", () => {
 		await page.getByPlaceholder("Cari Transaksi").click();
 		await page.getByPlaceholder("Cari Transaksi").fill("Rahma Dewi");
 		await page.getByPlaceholder("Cari Transaksi").press("Enter");
-		await page
-			.getByRole("row", {
-				name: "1 APL22122206100029 Rahma dewi Toko Aplous Pusat baru  Transaksi  Detail  Buang",
-			})
-			.getByRole("link", { name: " Transaksi" })
-			.click();
+		await page.locator('#tableTransaksi > tbody > tr:nth-child(1) > td:nth-child(6) > a.badge.badge-cyan.btn-ts').click();
 		await page.getByPlaceholder("Bayar..").click();
 		await page.getByPlaceholder("Bayar..").fill("600010");
 		const [page1] = await Promise.all([
